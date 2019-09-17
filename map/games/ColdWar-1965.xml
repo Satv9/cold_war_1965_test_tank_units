@@ -1738,6 +1738,7 @@
     </attachment>
     <attachment name="unitAttachment" attachTo="Factory" javaClass="games.strategy.triplea.attachments.UnitAttachment" type="unitType">
       <option name="isFactory" value="true"/>
+      <option name="canOnlyBePlacedInTerritoryValuedAtX" value="1"/>
     </attachment>
     <attachment name="unitAttachment" attachTo="BorderPatrol" javaClass="games.strategy.triplea.attachments.UnitAttachment" type="unitType">
       <option name="attack" value="1"/>
@@ -1888,51 +1889,39 @@
     <!-- Legends -->
     <attachment name="territoryAttachment" attachTo="Legend-USA" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-NATO" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-SEATO" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-USSR" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-WarsawPact" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-ArabLeague" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-China" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-SinoPact" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-Neutral" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-USA_Neutral" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-USSR_Neutral" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <attachment name="territoryAttachment" attachTo="Legend-China_Neutral" javaClass="games.strategy.triplea.attachments.TerritoryAttachment" type="territory">
       <option name="production" value="0"/>
-      <option name="isImpassable" value="true"/>
     </attachment>
     <!-- Territories -->
     <!-- United States -->
@@ -2574,14 +2563,13 @@
     </attachment>
     <!-- Movement Restrictions -->
     <attachment name="rulesAttachment" attachTo="AI-China" javaClass="games.strategy.triplea.attachments.RulesAttachment" type="player">
-      <option name="movementRestrictionTerritories" value="East China:Far West China:North China:Northeast China:Northwest China:South China:Southwest China:Tibet China:Borneo:Burma:Celebes:East Malaysia:Java:Papua:Sumatra:Thailand:West Malaysia:SZ 081 Sea Zone:SZ 084 Sea Zone:SZ 087 Sea Zone:SZ 099 Sea Zone:SZ 104 Sea Zone:SZ 105 Sea Zone:SZ 106 Sea Zone:SZ 107 Sea Zone:SZ 111 Sea Zone:SZ 116 Sea Zone"/>
+      <option name="movementRestrictionTerritories" value="East China:Far West China:North China:Northeast China:Northwest China:South China:Southwest China:Tibet China:SZ 111 Sea Zone:SZ 116 Sea Zone"/>
       <option name="movementRestrictionType" value="allowed"/>
     </attachment>
     <attachment name="rulesAttachment" attachTo="AI-SinoPact" javaClass="games.strategy.triplea.attachments.RulesAttachment" type="player">
-      <option name="movementRestrictionTerritories" value="East China:Far West China:North China:Northeast China:Northwest China:South China:Southwest China:Tibet China:Borneo:Burma:Celebes:East Malaysia:Java:Papua:Sumatra:Thailand:West Malaysia:South Vietnam:South Korea:SZ 081 Sea Zone:SZ 084 Sea Zone:SZ 087 Sea Zone:SZ 099 Sea Zone:SZ 104 Sea Zone:SZ 105 Sea Zone:SZ 106 Sea Zone:SZ 107 Sea Zone:SZ 111 Sea Zone"/>
+      <option name="movementRestrictionTerritories" value="Borneo:Burma:Celebes:East Malaysia:Java:North Vietnam:Papua:Sumatra:Thailand:West Malaysia:SZ 081 Sea Zone:SZ 084 Sea Zone:SZ 087 Sea Zone:SZ 099 Sea Zone:SZ 104 Sea Zone:SZ 106 Sea Zone:SZ 107 Sea Zone:SZ 111 Sea Zone:SZ 116 Sea Zone:SZ 120 Sea Zone"/>
       <option name="movementRestrictionType" value="allowed"/>
     </attachment>
-    <!-- :North Korea:North Vietnam -->
   </attachmentList>
   <initialize>
     <ownerInitialize>
@@ -3613,6 +3601,9 @@
     <property name="Placement Restricted By Factory" value="true" editable="false">
       <boolean/>
     </property>
+    <property name="Unit Placement Restrictions" value="true" editable="false">
+      <boolean/>
+    </property>
     <property name="Damage From Bombing Done To Units Instead Of Territories" value="true" editable="false">
       <boolean/>
     </property>
@@ -3664,69 +3655,102 @@
     <property name="mapName" value="cold_war-1965" editable="false"/>
     <property name="notes">
       <value><![CDATA[
-				<p>
-					<div style="font-family:arial; font-size:30px">Cold War: 1965</div>
-					<div style="font-family:arial; font-size:16px">Scenario and Map design by Dave Ball</div>
-					<br/>
-					<img src="http://triplea.ballcgi.com/download/screenshot-ColdWar1965.png">
-				</p>
+<html>
+    <body bgcolor="DADADA" align="center">
+        <div style="text-align: center; padding: 10px">
+            <br/>
+            <img src="mapScreenshot.png"/>
+            <h1 style="font-size:200%;color:660000">Cold War: 1965</h1>
+            <span style="font-size:120%">
+                <b>Version 1.1</b>
+            </span>
+            <br/>
+            <br/>
+            <b>Created by: Dave Ball (Conarymor)</b>
+            <br/>
+            <b>Updated by: Redrum</b>
+            <br/>
 
-				<p style="font-family:arial; font-size:10px">The Cold War... a period of great uncertainty. The 1960s saw the Berlin Wall go up, the Cuban Missile Crisis, the Sino-Soviet split, the Vietnam War, the Six Days War, the continued stand-off between the Koreas, tension between India and Pakistan, the end of European Colonialism (and the collapse of many successor states), and of course, the proliferation of nuclear arms. This was a tense period in our history, in which any number of small conflicts could have escalated quickly into WWIII.</p>
+            <p>The Cold War... a period of great uncertainty. The 1960s saw the Berlin Wall go up, the Cuban Missile Crisis, 
+                the Sino-Soviet split, the Vietnam War, the Six Days War, the continued stand-off between the Koreas, tension between India and Pakistan, 
+                the end of European Colonialism (and the collapse of many successor states), and of course, the proliferation of nuclear arms. 
+                This was a tense period in our history, in which any number of small conflicts could have escalated quickly into WWIII.</p>
 
-				<p style="font-family:arial; font-size:10px">This map was created by Dave Ball (Conarymor).  It is a global scenario for the Cold War in 1965.  It is designed for two alliances and up to six players.  China and its ally, the Sino Pact, are intended to be played by the AI.</p>
+            <p>It is a global scenario for the Cold War in 1965. It is designed for two alliances and up to six players. China and its ally, the Sino Pact, are intended to be played by the AI.</p>
 
-				<p style="font-family:arial; font-size:10px"><strong>RULES</strong><br/>This scenario uses WW2V3 rules.  There are a few exceptions and some other game features worth noting.</p>
+            <p>As to teams, there are three alliances: USA, USSR, and China. 
+                The players for each are, USA: United States, NATO and SEATO; USSR: USSR, Warsaw Pact, Arab League; and China: China, Sino Pact. 
+                The two super power alliances three players each. The United States is allied with NATO and SEATO. The Soviet Union is allied with the Warsaw Pact and the Arab League. 
+                China and the Sino Pact (Asian countries which China supported or had relations) are only able to move/attack in their respective starting territories and adjacent sea zones (except SZ 105).</p>
 
-				<p style="font-family:arial; font-size:10px">I am looking for help with testing and gathering feedback.  This map is still in beta and requires much more testing and refining.  All help is appreciated!</p>
+            <p>For the neutrals, there are four groups. One is the non-aligned neutral countries, which are per traditional TripleA scenarios. 
+                There are also three additional players, intended to be run by the AI but have no turn. The one difference is that they are aligned with one of the other alliances. 
+                This allows the US, Soviets, and China to occupy them without a fight and even help defend them.</p>
 
-				<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-					<li style="padding-bottom:10px"><STRONG>Bugs or Design Flaws:</STRONG>  Errors and anything that doesn't work right, like missing territory connections.</li>
-					<li style="padding-bottom:10px"><STRONG>Usability:</STRONG>  I really struggled with this map given the small size of some crucial territories that I did not want to combine.  Also, unit placement and unit color for adequate contrast.</li>
-					<li style="padding-bottom:10px"><STRONG>Units Power and Price:</STRONG>  I am completely open to revising units, regarding their attack and defense, stats, price and initial distribution.</li>
-					<li style="padding-bottom:10px"><STRONG>Game Balance:</STRONG>  I think this is where I need the most help.  I gave the US a lead in TUV with the expectation that the Soviet preemptive strike will do some significant damage.  Is it enough or too much?  How does China having first move upset this balance?</li>
-				</ol>
+            <p>
+                <b>Rules</b>
+                <br/>This scenario uses WW2V3 rules. There are a few exceptions and some other game features worth noting.</p>
+            
+            <p>
+                <b>1.1 Changes</b>
+                <br/>
+                <ul>
+                    <li>Reworked game notes.</li>
+                    <li>Fixed map legend colors.</li>
+                    <li>Fixed China and Sino territory restrictions.</li>
+                </ul>
+            </p>
+            
+            <p>
+                <b>1.0.5 Changes</b>
+                <br/>
+                <ul>
+                    <li>An additional capital for NATO was added in Northeast Canada.</li>
+                    <li>The capitals for the aligned-neutrals has been removed.</li>
+                    <li>China and the Sino Pact powers now have static Border Patrol units added with a 3 defense.</li>
+                    <li>Pricing for all standard units has been updated.</li>
+                    <li>Bug allowing AI to place units on the map legend has been fixed.</li>
+                </ul>
+            </p>
 
-				<p style="font-family:arial; font-size:10px; margin-top:0px">This map is still in development and is undergoing further testing.  If you find any bugs or have questions, comments or suggestions related to how to improve the game, please let me know.  Submit you feedback to the appropriate thread on: triplea.sourceforge.net/mywiki</p>
+            <p>
+                <b>1.0.4 Changes</b>
+                <br/>
+                <ul>
+                    <li>Modified production to give US alliance a stronger economy overall</li>
+                    <li>Addjusted attack upward to 4 on Cruisers to reflect guided missile tech</li>
+                    <li>Set minimum Triple A version to 1.6.1</li>
+                </ul>
+            </p>
 
-				<p style="font-family:arial; font-size:10px"><STRONG>Current version:</STRONG> Beta 1.0.5</p>
+            <p>
+                <b>1.0.3 Changes</b>
+                <br/>
+                <ul>
+                    <li>Correction inverted naming of Bolivia and Paraguay</li>
+                    <li>Bolstered NATO unit counts in West Germany, Austria and Italy</li>
+                </ul>
+            </p>
 
-				<p style="font-family:arial; font-size:10px"><strong>Ver 1.0.5 changes:</strong><br/>
-					<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-					<li style="padding-bottom:10px">An additional capital for NATO was added in Northeast Canada.</li>
-					<li style="padding-bottom:10px">The capitals for the aligned-neutrals has been removed.</li>
-					<li style="padding-bottom:10px">China and the Sino Pact powers now have static Border Patrol units added with a 3 defense.</li>
-					<li style="padding-bottom:10px">Pricing for all standard units has been updated.</li>
-					<li style="padding-bottom:10px">Bug allowing AI to place units on the map legend has been fixed.</li>
-					</ol>
-				</p>
+            <p>
+                <b>1.0.2 Changes</b>
+                <br/>
+                <ul>
+                    <li>Eliminited ability for China or Sino Alliance to attack</li>
+                </ul>
+            </p>
 
-				<p style="font-family:arial; font-size:10px"><strong>Ver 1.0.4 changes:</strong><br/>
-					<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-						<li style="padding-bottom:10px">Modified production to give US alliance a stronger economy overall</li>
-						<li style="padding-bottom:10px">Addjusted attack upward to 4 on Cruisers to reflect guided missile tech</li>
-						<li style="padding-bottom:10px">Set minimum Triple A version to 1.6.1</li>
-					</ol>
-				</p>
-
-				<p style="font-family:arial; font-size:10px"><strong>Ver 1.0.3 changes:</strong><br/>
-					<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-						<li style="padding-bottom:10px">Correction inverted naming of Bolivia and Paraguay</li>
-						<li style="padding-bottom:10px">Bolstered NATO unit counts in West Germany, Austria and Italy</li>
-					</ol>
-				</p>
-
-				<p style="font-family:arial; font-size:10px"><strong>Ver 1.0.2 changes:</strong><br/>
-					<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-						<li style="padding-bottom:10px">Eliminited ability for China or Sino Alliance to attack</li>
-					</ol>
-				</p>
-
-				<p style="font-family:arial; font-size:10px"><strong>Ver 1.0.1 changes:</strong><br/>
-					<ol style="font-family:arial; font-size:10px; margin-bottom:0px">
-						<li style="padding-bottom:10px">Map updated to game build 1.6.x</li>
-						<li style="padding-bottom:10px">Added 3 new units: ICBM, Cargo Plane, and Truck</li>
-					</ol>
-				</p>
+            <p>
+                <b>1.0.1 Changes</b>
+                <br/>
+                <ul>
+                    <li>Map updated to game build 1.6.x</li>
+                    <li>Added 3 new units: ICBM, Cargo Plane, and Truck</li>
+                </ul>
+            </p>
+        </div>
+    </body>
+</html>
 				]]></value>
     </property>
   </propertyList>

@@ -1,0 +1,3 @@
+map_name: cold_war_1965
+games:
+- {game_name: 'Cold War: 1965', file_name: ColdWar-1965.xml}
